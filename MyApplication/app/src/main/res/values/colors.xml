@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="gray_20_percent">#E3E3E3</color>
+    <color name="greyish_color">#b4b4b4</color>
+    <color name="camel_color">#f5a623</color>
+    <color name="camel_color_dark">#ff9e00</color>
+    <color name="orange_yellow">#fa9c02</color>
+    <color name="pale_gold_color">#ffcc6c</color>
+    <color name="green_color">#25c51b</color>
+    <color name="algae_green_color">#20c03e</color>
+    <color name="red_color_87">#def31258</color>
+    <color name="light_red_color_87">#f31258</color>
+    <color name="white_color_5op">#94ffffff</color>
+    <color name="black_color_10op">#1A000000</color>
+    <color name="pale_orange_color">#fcaa5a</color>
+    <color name="greyish_black">#686868</color>
+    <color name="orange">#FEB83C</color>
+    <color name="uber_layout_background">#d7d7d7</color>
+    <color name="light_gray">#d7d7d7</color>
+    <color name="white_four">#f7f6f6</color>
+
+    <color name="red_ripple_color">#f31258</color>
+    <color name="gray_ripple_color">#61000000</color>
+    <color name="blue_ripple_color">#3b5998</color>
+    <color name="dark_red_ripple_color">#a41c42</color>
+    <color name="nav_drawer_gray_color">#f5f4f3</color>
+    <color name="nav_drawer_dark_brown_color">#443d3d</color>
+    <color name="nav_drawer_darker_brown_color">#2f2b30</color>
+    <color name="white_54_op">#a9a6a6</color>
+
+</resources>

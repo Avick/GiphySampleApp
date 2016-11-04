@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GiphyImage</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_result">Nothing to Show</string>
+    <string name="hold_item_to_remove">Hold item to remove</string>
+    <string name="favourites">Favourites</string>
+    <string name="trending_layout_header">The newest,most trending gif</string>
+    <string name="trending_tool_bar_header">Trending</string>
+    <string name="search_command">Type something to search</string>
+    <string name="gif_image_details">GifImageDetails </string>
+    <string name="search_layout_header_text"> %1$d GIFS FOUND FOR %2$S</string>
+
+    <!--<string name="welcome_messages">Hello, %1$S! You have %2$d new message(s) and your quote is %3$.2f%%.</string>-->
+
+    <!--Hello, ANDROID! You have 1 new message(s) and your quote is 80,50%.-->
+</resources>

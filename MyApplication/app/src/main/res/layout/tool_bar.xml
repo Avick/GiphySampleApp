@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:elevation="4dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_back_button"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_arrow_grey"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txt_header"
+            android:layout_toRightOf="@id/img_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+
+
+        <ImageView
+            android:id="@+id/tool_bar_search"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/search_edt"
+            android:layout_toLeftOf="@id/tool_bar_search"
+            android:layout_toRightOf="@id/img_back_button"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="8"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Search Restaurant"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:theme="@style/ToolBarEditText"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/txt_subheader"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/txt_header"-->
+            <!--android:text="in sakinaka"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="12sp"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img_map"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:background="@android:drawable/ic_dialog_map"-->
+            <!--android:visibility="visible"/>-->
+
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/tool_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <!--android:background="@drawable/myrect"-->
+
+            <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@android:drawable/ic_menu_search" />-->
+
+            <!--<EditText-->
+            <!--android:id="@+id/search_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:gravity="bottom"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_weight="8"-->
+            <!--android:hint="Search Restaurant"-->
+            <!--android:maxLines="1"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textColorHint="@android:color/white"-->
+            <!--android:imeOptions="actionSearch"/>-->
+
+            <!--<EditText-->
+            <!--android:id="@+id/search_edt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:gravity="bottom"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_weight="8"-->
+            <!--android:hint="Search Restaurant"-->
+            <!--android:maxLines="1"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textColorHint="@android:color/white"-->
+            <!--android:textSize="14sp"-->
+            <!--android:visibility="visible"-->
+            <!--/>-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/clear_search"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_weight="2"-->
+            <!--android:src="@android:drawable/ic_menu_close_clear_cancel"-->
+            <!--android:visibility="visible"-->
+            <!--/>-->
+        </LinearLayout>
+    </RelativeLayout>
+
+</Toolbar>
