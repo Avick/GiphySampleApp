@@ -38,14 +38,16 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@android:drawable/ic_menu_search"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
         <EditText
             android:id="@+id/search_edt"
             android:layout_toLeftOf="@id/tool_bar_search"
             android:layout_toRightOf="@id/img_back_button"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="15dp"
             android:layout_weight="8"
@@ -55,7 +57,7 @@
             android:maxLines="1"
             android:inputType="text"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@color/white_four"
             android:theme="@style/ToolBarEditText"
             android:textSize="14sp"
             android:visibility="gone"/>

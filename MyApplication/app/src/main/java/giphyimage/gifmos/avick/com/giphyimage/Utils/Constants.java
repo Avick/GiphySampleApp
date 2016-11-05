@@ -10,4 +10,5 @@ public interface Constants {
     String GENERIC_ERROR = "Something went wrong";
     String TRENDING = "Trending";
     String SEARCH_RESULT= "Search Result";
+    String RECENT_SEARCH_QUERY = "recent_search_query";
 }

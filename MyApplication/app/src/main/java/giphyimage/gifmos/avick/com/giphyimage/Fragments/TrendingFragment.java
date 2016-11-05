@@ -139,6 +139,7 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
         ((BaseActivity)getActivity()).getTxtHeaderView().setText(getString(R.string.trending_tool_bar_header));
         ((BaseActivity)getActivity()).getSearchText().setVisibility(View.GONE);
         ((BaseActivity)getActivity()).getTxtHeaderView().setVisibility(View.VISIBLE);
+        ((BaseActivity)getActivity()).getImgSearch().setVisibility(View.VISIBLE);
         ((BaseActivity)getActivity()).getImgSearch().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

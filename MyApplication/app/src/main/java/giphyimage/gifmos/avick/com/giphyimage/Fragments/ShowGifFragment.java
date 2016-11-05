@@ -65,8 +65,14 @@ public class ShowGifFragment extends BaseFragment {
         if(BasicUtils.getData() != null) {
             data = BasicUtils.getData();
             BasicUtils.setData(null);
-            txtGifView.setText("Source: "+data.getSource());
-            updateDisplay(data.getImages().getDownsizedLarge().getUrl(), imgGifView, pbShowGif);
+            if(data.getSource() != null && !data.getSource().equals("")) {
+                txtGifView.setText("Source: " + data.getSource());
+                txtGifView.setVisibility(View.VISIBLE);
+                updateDisplay(data.getImages().getDownsizedLarge().getUrl(), imgGifView, pbShowGif);
+            } else {
+                txtGifView.setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -75,6 +81,7 @@ public class ShowGifFragment extends BaseFragment {
         ((BaseActivity)getActivity()).getTxtHeaderView().setText(getString(R.string.gif_image_details));
         ((BaseActivity)getActivity()).getSearchText().setVisibility(View.GONE);
         ((BaseActivity)getActivity()).getTxtHeaderView().setVisibility(View.VISIBLE);
+        ((BaseActivity)getActivity()).getImgSearch().setVisibility(View.GONE);
     }
 
     private void updateDisplay(String url, ImageView imageView, final ProgressBar progressBar) {
