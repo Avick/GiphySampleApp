@@ -15,6 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -206,6 +208,17 @@ public class BaseActivity extends Activity {
                     onBackPressed();
                 }
             });
+        }
+    }
+
+
+
+    public void showBackButton(View.OnClickListener mListener) {
+
+        if (mActionbarToolbar != null) {
+            ImageView backbutton = (ImageView) mActionbarToolbar.findViewById(R.id.img_back_button);
+            backbutton.setVisibility(View.VISIBLE);
+            backbutton.setOnClickListener(mListener);
         }
     }
 

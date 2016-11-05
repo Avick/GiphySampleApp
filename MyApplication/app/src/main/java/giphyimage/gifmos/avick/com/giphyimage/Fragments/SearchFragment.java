@@ -85,9 +85,9 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
         if (mDataSet != null && mDataSet.size() > 0) {
             mAdapter = new SearchListAdapter(mDataSet, getActivity(), this);
             mRecyclerView.setAdapter(mAdapter);
-            if(q != null ) {
+            if (q != null) {
                 txtEmptyState.setVisibility(View.GONE);
-                txtLayoutHeading.setText(getString(R.string.search_layout_header_text, totalCount , q));
+                txtLayoutHeading.setText(getString(R.string.search_layout_header_text, totalCount, q));
                 txtLayoutHeading.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.VISIBLE);
             }
@@ -104,6 +104,8 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     @Override
     public void onItemClick(DataModel data) {
         BasicUtils.setData(data);
+        dismissPopup();
+        hideKeyBoard(((BaseActivity)getActivity()).getSearchText());
         getFragmentManager().beginTransaction()
                 //.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                 .setCustomAnimations(R.animator.enter_right, R.animator.exit_left, R.animator.enter_left, R.animator.exit_right)
@@ -192,7 +194,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
             mDataSet.addAll(result.getData());
             if (mAdapter == null) {
                 totalCount = result.getPagination().getTotalCount();
-                txtLayoutHeading.setText(getString(R.string.search_layout_header_text, totalCount , q));
+                txtLayoutHeading.setText(getString(R.string.search_layout_header_text, totalCount, q));
                 txtLayoutHeading.setVisibility(View.VISIBLE);
                 mAdapter = new SearchListAdapter(mDataSet, getActivity(), this);
                 mRecyclerView.setAdapter(mAdapter);
@@ -204,8 +206,8 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
             mAdapter.notifyDataSetChanged();
 
 
-        }else if(result != null && result.getData() != null && result.getData().size() == 0) {
-            if(mDataSet == null || mDataSet.size() == 0) {
+        } else if (result != null && result.getData() != null && result.getData().size() == 0) {
+            if (mDataSet == null || mDataSet.size() == 0) {
                 mRecyclerView.setVisibility(View.GONE);
                 txtEmptyState.setText(getString(R.string.no_result));
                 txtEmptyState.setVisibility(View.VISIBLE);
@@ -218,7 +220,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
         }
 
 
-        if(counter == 0) {
+        if (counter == 0) {
             mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
@@ -240,21 +242,36 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
         }
 
 
-
     }
 
 
-
     public void customizeToolBar() {
-        ((BaseActivity) getActivity()).showBackButton();
+
+        View.OnClickListener mListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View focusedView = ((BaseActivity) getActivity()).getCurrentFocus();
+                if (view != null) {
+                    dismissPopup();
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow((((BaseActivity)getActivity()).getSearchText()).getWindowToken(), 0);
+
+                }
+                getActivity().onBackPressed();
+
+            }
+
+        };
+
+        ((BaseActivity) getActivity()).showBackButton(mListener);
         ((BaseActivity) getActivity()).getTxtHeaderView().setVisibility(View.GONE);
         ((BaseActivity) getActivity()).getSearchText().setVisibility(View.VISIBLE);
-        ((BaseActivity)getActivity()).getImgSearch().setVisibility(View.VISIBLE);
+        ((BaseActivity) getActivity()).getImgSearch().setVisibility(View.VISIBLE);
         ((BaseActivity) getActivity()).getSearchText().setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        ((BaseActivity)getActivity()).getSearchText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ((BaseActivity) getActivity()).getSearchText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(view.hasFocus()) {
+                if (view.hasFocus()) {
                     int[] location = new int[2];
                     //((BaseActivity)getActivity()).getSearchText().getLocationInWindow(location);
                     ((BaseActivity) getActivity()).getActionBarToolBar().getLocationOnScreen(location);
@@ -311,7 +328,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     public void startSearch() {
 
         mDataSet = null;
-        if(mAdapter!= null) {
+        if (mAdapter != null) {
             mLayoutManager.setSpanSizeLookup(new GridLayoutManager.DefaultSpanSizeLookup());
 //            mLayoutManager.requestLayout();
 //            mAdapter.notifyDataSetChanged();
@@ -349,18 +366,11 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     }
 
 
-    public void showDialog(int yVal) {
-        if(dialogFragment == null) {
-            dialogFragment = SearchSuggestionPopup.newInstance(yVal);
-
-        }
-        dialogFragment.show(getFragmentManager().beginTransaction(), "Dialog Fragment");
-    }
 
     public void showPopup(View v, int[] location) {
         final ArrayList<String> queries = BasicUtils.getSearchQueries(getActivity());
-        if(queries.size() > 0) {
-            if(popup == null) {
+        if (queries.size() > 0) {
+            if (popup == null) {
                 popup = new PopupWindow(getActivity());
             }
             View layout = getActivity().getLayoutInflater().inflate(R.layout.search_suggestion_layout, null);
@@ -395,8 +405,8 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
 
     }
 
-    public void dismissPopup(){
-        if(popup != null) {
+    public void dismissPopup() {
+        if (popup != null) {
             popup.dismiss();
         }
     }
