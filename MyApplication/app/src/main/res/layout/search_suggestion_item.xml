@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:text="superman"
+        android:textColor="@android:color/black"
         android:textSize="16sp"/>
 
 </LinearLayout>

@@ -12,25 +12,6 @@
         android:text="no result found"
         android:visibility="gone" />
 
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_favourites"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="@color/camel_color"-->
-    <!--android:gravity="center"-->
-    <!--android:text="@string/favourites" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_instruction"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/hold_item_to_remove"-->
-    <!--android:gravity="center"-->
-    <!--android:visibility="gone"/>-->
-
     <TextView
         android:id="@+id/txt_trending_header"
         android:layout_width="match_parent"

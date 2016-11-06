@@ -51,9 +51,6 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
         View view = inflater.inflate(R.layout.search_result, container, false);
         customizeToolBar();
         init(view);
-
-        //view.setVisibility(View.GONE);
-        //return addToBaseFragment(view);
         return view;
     }
 
@@ -65,7 +62,7 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
             showFragmentProgressBar();
             getTrendingResult(26);
         } else if( mDataSet != null) {
-            mAdapter = new SearchListAdapter(mDataSet, getActivity(),this);
+            mAdapter = new SearchListAdapter(mDataSet, getActivity(),this, this);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
@@ -75,7 +72,6 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
     public void onItemClick(DataModel data) {
         BasicUtils.setData(data);
         getFragmentManager().beginTransaction()
-                //.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                 .setCustomAnimations(R.animator.enter_right, R.animator.exit_left, R.animator.enter_left, R.animator.exit_right)
                 .replace(R.id.lnr_data_container, ShowGifFragment.newInstance(), ShowGifFragment.TAG).addToBackStack(null).commit();
     }
@@ -118,7 +114,7 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
 
             mDataSet.addAll(result.getData());
             if(mAdapter == null) {
-                mAdapter = new SearchListAdapter(mDataSet, getActivity(),this);
+                mAdapter = new SearchListAdapter(mDataSet, getActivity(),this, this);
                 mRecyclerView.setAdapter(mAdapter);
 
             }
@@ -126,11 +122,9 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
             mAdapter.notifyDataSetChanged();
 
 
-        } else if(result != null && result.getData() != null && result.getData().size() == 0) {
-//            counter++;
-//            //((BaseActivity)getActivity()).showProgressDialog(null, false);
-//            getTrendingResult(counter);
-        }
+        } /*else if(result != null && result.getData() != null && result.getData().size() == 0) {
+
+        }*/
 
     }
 
@@ -144,7 +138,6 @@ public class TrendingFragment extends BaseFragment implements SearchListAdapter.
             @Override
             public void onClick(View view) {
                 getFragmentManager().beginTransaction()
-                        //.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                         .setCustomAnimations(R.animator.enter_right, R.animator.exit_left, R.animator.enter_left, R.animator.exit_right)
                         .replace(R.id.lnr_data_container, SearchFragment.newInstance(), SearchFragment.TAG).addToBackStack(null).commit();
             }

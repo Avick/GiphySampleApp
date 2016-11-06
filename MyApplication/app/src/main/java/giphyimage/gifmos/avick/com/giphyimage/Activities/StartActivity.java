@@ -75,24 +75,9 @@ public class StartActivity extends BaseActivity {
 
     public boolean checkPermission() {
         if(Build.VERSION.SDK_INT >= 23) {
-//            int hasLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-//            int hasReadPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-//            int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
             List<String> listPermissionsNeeded = new ArrayList<>();
 
-
-//            if(hasLocationPermission != PackageManager.PERMISSION_GRANTED) {
-//                listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
-//            }
-//
-//            if(hasReadPermission != PackageManager.PERMISSION_GRANTED) {
-//                listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-//            }
-//
-//            if(hasWritePermission != PackageManager.PERMISSION_GRANTED) {
-//                listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//            }
 
             if (!listPermissionsNeeded.isEmpty())
             {

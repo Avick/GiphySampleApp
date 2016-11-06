@@ -20,11 +20,6 @@ public class NetworkRequestListener implements Callback {
 
     private static NetworkRequestListener instance;
 
-
-//    private NetworkRequestListener() {
-//        super();
-//    }
-
     public static NetworkRequestListener getInstance() {
         if (instance == null) {
             instance = new NetworkRequestListener();

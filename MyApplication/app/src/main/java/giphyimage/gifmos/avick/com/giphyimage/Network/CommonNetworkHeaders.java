@@ -12,21 +12,7 @@ public class CommonNetworkHeaders implements Parcelable {
     private static CommonNetworkHeaders singleInstance;
     private static final String COMMON_API_HEADERS = "commonHeaders";
 
-    // Following will be set during the initialization of the APP in ZiffiApplication.java
-
     private int apiKey;
-
-//    private int apiVersion;
-//    private String deviceType;
-//    private String appVersionName;
-//    private String deviceId;
-//    private String deviceOS;
-//    private String bookingSource;
-//
-//    //Following will be set as and when the data is available in PrefUtils.java
-//    private String gcmRegistrationId;
-//    private String referrer;
-//    private String deviceCoordinates;
 
     private CommonNetworkHeaders() {
 

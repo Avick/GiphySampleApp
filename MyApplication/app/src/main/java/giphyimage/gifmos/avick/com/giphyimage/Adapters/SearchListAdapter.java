@@ -1,5 +1,6 @@
 package giphyimage.gifmos.avick.com.giphyimage.Adapters;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +12,10 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
@@ -33,11 +36,13 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     ArrayList<DataModel> mDataset;
     Context mContext;
     OnItemClickListener mListener;
+    Fragment fragment;
 
-    public SearchListAdapter(ArrayList<DataModel> mDataset, Context context, OnItemClickListener mListener) {
+    public SearchListAdapter(ArrayList<DataModel> mDataset, Context context, OnItemClickListener mListener, Fragment fragment) {
         this.mDataset = mDataset;
         this.mContext = context;
         this.mListener = mListener;
+        this.fragment = fragment;
     }
 
 
@@ -86,11 +91,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class ViewHolderGiphyImage extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        public TextView txtRestaurant;
-//        public TextView txtRating;
-//        public TextView txtPrice;
-//        public TextView txtFavorite;
-
         public ImageView gifImageView;
         public ProgressBar gifProgressBar;
         public ViewHolderGiphyImage(View itemView) {
@@ -98,12 +98,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             gifImageView = (ImageView) itemView.findViewById(R.id.glide_gif);
             gifProgressBar = (ProgressBar) itemView.findViewById(R.id.gif_progress_bar);
             itemView.setOnClickListener(this);
-//            txtRestaurant = (TextView) itemView.findViewById(R.id.txt_restaurant_name);
-//            txtPrice = (TextView) itemView.findViewById(R.id.txt_restaurant_price);
-//            txtRating = (TextView) itemView.findViewById(R.id.txt_restaurant_rating);
-//            txtFavorite = (TextView) itemView.findViewById(R.id.txt_favourite);
-
-//            txtFavorite.setOnClickListener(this);
 
         }
 
@@ -112,14 +106,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if( getAdapterPosition() >= 0 && mDataset.get(getAdapterPosition()) != null) {
                 mListener.onItemClick(mDataset.get(getAdapterPosition()));
             }
-
-//            if(v.getId() == R.id.txt_favourite) {
-//                if(!((RestaurantModel)mDataset.get(getAdapterPosition())).getRestaurant().isSaved()) {
-//                    ((RestaurantModel) mDataset.get(getAdapterPosition())).getRestaurant().setSaved(true);
-//                    notifyItemChanged(getAdapterPosition());
-//                    mClickItemListener.onClickItem(((RestaurantModel) mDataset.get(getAdapterPosition())).getRestaurant());
-//                }
-//            }
         }
     }
 
@@ -136,13 +122,24 @@ public class SearchListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void updateDisplay(String url, ImageView imageView, final ProgressBar progressBar) {
 
-//        Log.i(TAG, "updateDisplay GIF URL: " + gifUrl);
-
-        Glide.with(mContext)
+        Glide.with(fragment)
                 .load(url)
                 .thumbnail(0.1f)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
+                .error(R.color.greyish_black)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                })
                 .into(new GlideDrawableImageViewTarget(imageView) {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {

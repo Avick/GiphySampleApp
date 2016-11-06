@@ -1,22 +1,17 @@
 package giphyimage.gifmos.avick.com.giphyimage.Fragments;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -58,8 +53,9 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     int totalCount = 0;
     boolean hasNextPage = false;
     public final static String TAG = SearchFragment.class.getSimpleName();
-    DialogFragment dialogFragment;
     PopupWindow popup;
+    View rootView;
+    boolean isSearchClickable = false;
 
     public static SearchFragment newInstance() {
         SearchFragment frag = new SearchFragment();
@@ -70,20 +66,24 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.search_result, container, false);
+        rootView = inflater.inflate(R.layout.search_result, container, false);
         customizeToolBar();
-        init(view);
-
-        //view.setVisibility(View.GONE);
-        //return addToBaseFragment(view);
-        return view;
+        init(rootView);
+        return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        if(!((BaseActivity)getActivity()).getSearchText().getText().toString().equals("")) {
+            isSearchClickable = true;
+        } else {
+            isSearchClickable = false;
+        }
+
         if (mDataSet != null && mDataSet.size() > 0) {
-            mAdapter = new SearchListAdapter(mDataSet, getActivity(), this);
+            mAdapter = new SearchListAdapter(mDataSet, getActivity(), this, this);
             mRecyclerView.setAdapter(mAdapter);
             if (q != null) {
                 txtEmptyState.setVisibility(View.GONE);
@@ -196,7 +196,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
                 totalCount = result.getPagination().getTotalCount();
                 txtLayoutHeading.setText(getString(R.string.search_layout_header_text, totalCount, q));
                 txtLayoutHeading.setVisibility(View.VISIBLE);
-                mAdapter = new SearchListAdapter(mDataSet, getActivity(), this);
+                mAdapter = new SearchListAdapter(mDataSet, getActivity(), this, this);
                 mRecyclerView.setAdapter(mAdapter);
                 if (mRecyclerView.getVisibility() == View.GONE) {
                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -277,43 +277,39 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
                     ((BaseActivity) getActivity()).getActionBarToolBar().getLocationOnScreen(location);
                     location[1] += ((BaseActivity) getActivity()).getActionBarToolBar().getHeight();
                     //showDialog(location[1]);
+                    isSearchClickable = true;
                     showPopup(view, location);
                 }
             }
         });
 
-        ((BaseActivity) getActivity()).getImgSearch().setOnClickListener(new View.OnClickListener() {
+
+
+        ((BaseActivity) getActivity()).getImgSearch().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                triggerSearch(((BaseActivity) getActivity()).getSearchText());
+            public void onFocusChange(View view, boolean b) {
+                if(b && isSearchClickable){
+                    view.performClick();
+                }
             }
         });
 
-        //                if ((((BaseActivity) getActivity()).getSearchText().toString().equals("")) || (((BaseActivity) getActivity()).getSearchText().getText().toString().equals(q))) {
-//                    if (((BaseActivity) getActivity()).getSearchText().getText().toString().equals("")) {
-//                        q = null;
-//                        txtEmptyState.setText(getString(R.string.search_command));
-//                        mRecyclerView.setVisibility(View.GONE);
-//                        txtEmptyState.setVisibility(View.VISIBLE);
-//                        txtLayoutHeading.setVisibility(View.GONE);
-//                    }
-//
-//                } else {
-//                    txtEmptyState.setVisibility(View.GONE);
-//                    mRecyclerView.setVisibility(View.GONE);
-//                    q = ((BaseActivity) getActivity()).getSearchText().getText().toString();
-//                    BasicUtils.saveSearchQuery(q, getActivity());
-//                    startSearch();
-//                }
-//
-//                hideKeyBoard(((BaseActivity) getActivity()).getSearchText());
 
+        ((BaseActivity) getActivity()).getImgSearch().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((BaseActivity) getActivity()).getSearchText().clearFocus();
+                //((BaseActivity) getActivity()).getImgSearch().requestFocus();
+                triggerSearch(((BaseActivity) getActivity()).getSearchText());
+            }
+        });
 
         ((BaseActivity) getActivity()).getSearchText().setOnEditorActionListener(
                 new EditText.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
+                            isSearchClickable = false;
                             ((BaseActivity) getActivity()).getSearchText().clearFocus();
                             ((BaseActivity) getActivity()).getImgSearch().requestFocus();
                             triggerSearch(v);
@@ -330,8 +326,6 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
         mDataSet = null;
         if (mAdapter != null) {
             mLayoutManager.setSpanSizeLookup(new GridLayoutManager.DefaultSpanSizeLookup());
-//            mLayoutManager.requestLayout();
-//            mAdapter.notifyDataSetChanged();
         }
         mAdapter = null;
         counter = 0;
@@ -382,25 +376,18 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     ((BaseActivity) getActivity()).getSearchText().setText(queries.get(position));
                     ((BaseActivity) getActivity()).getSearchText().setSelection(queries.get(position).length());
+                    isSearchClickable = false;
                     ((BaseActivity) getActivity()).getSearchText().clearFocus();
                     ((BaseActivity) getActivity()).getImgSearch().requestFocus();
                     triggerSearch(((BaseActivity) getActivity()).getSearchText());
                 }
             });
             popup.setContentView(layout);
-            // Set content width and height
             popup.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
             popup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
 
-
-            // Closes the popup window when touch outside of it - when looses focus
-            //popup.setOutsideTouchable(true);
-            //popup.setFocusable(true);
-
-            // Show anchored to button
             popup.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.search_suggestion_background)); //.getColor(android.R.color.white)
             popup.showAtLocation(layout, Gravity.NO_GRAVITY, location[0], location[1]);
-            //popup.showAsDropDown(anchorView);
         }
 
     }

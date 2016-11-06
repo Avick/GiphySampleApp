@@ -8,9 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-
-import giphyimage.gifmos.avick.com.giphyimage.Fragments.SearchFragment;
 import giphyimage.gifmos.avick.com.giphyimage.R;
 
 /**
@@ -21,6 +18,7 @@ public class SearchSuggestionAdapter extends ArrayAdapter<String> {
 
     ArrayList<String> mDataset;
     Context context;
+
 
     public SearchSuggestionAdapter(Context context, ArrayList<String> mDataset) {
         super(context, R.layout.search_suggestion_item, mDataset);

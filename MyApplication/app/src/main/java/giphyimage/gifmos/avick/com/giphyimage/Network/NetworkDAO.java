@@ -42,7 +42,6 @@ public class NetworkDAO {
             @Override
             public void intercept(RequestFacade request) {
 
-//                CommonNetworkHeaders headers = CommonNetworkHeaders.getInstance();
                 request.addHeader(NetworkConstants.API_KEY, Constants.PUBLIC_BETA_KEY);
             }
         };

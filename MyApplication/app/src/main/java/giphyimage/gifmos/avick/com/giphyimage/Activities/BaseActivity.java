@@ -1,13 +1,11 @@
 package giphyimage.gifmos.avick.com.giphyimage.Activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,8 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -33,10 +29,8 @@ public class BaseActivity extends Activity {
 
     Toolbar mActionbarToolbar;
     TextView txtHeaderView;
-    TextView txtSubHeader;
     ImageView imgSearch;
-    ImageView imgMap;
-    LinearLayout searchLayout, backgoundLayout;
+    LinearLayout backgoundLayout;
     EditText searchText;
     private ProgressDialog mProgressDialog;
     boolean doubleBackToExitPressedOnce = false;
@@ -86,12 +80,7 @@ public class BaseActivity extends Activity {
 
             txtHeaderView = (TextView) mActionbarToolbar.findViewById(R.id.txt_header);
             imgSearch = (ImageView) mActionbarToolbar.findViewById(R.id.tool_bar_search);
-            searchLayout = (LinearLayout) mActionbarToolbar.findViewById(R.id.tool_bar_layout);
             searchText = (EditText) mActionbarToolbar.findViewById(R.id.search_edt);
-//            imgMap = (ImageView) mActionbarToolbar.findViewById(R.id.img_map);
-//            txtSubHeader = (TextView) mActionbarToolbar.findViewById(R.id.txt_subheader);
-            //searchText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-            //SearchView searchView = (SearchView)mActionbarToolbar.findViewById(R.id.action_search);
 
         }
 
@@ -101,16 +90,9 @@ public class BaseActivity extends Activity {
     public void setHeaderText(String header) {
         txtHeaderView.setText(header);
     }
-    public void setSubHeaderText(String subheader) {
-        txtSubHeader.setText(subheader);
-    }
 
     public ImageView getImgSearch() {
         return imgSearch;
-    }
-
-    public LinearLayout getSearchLayout() {
-        return searchLayout;
     }
 
     public TextView getTxtHeaderView() {
@@ -120,14 +102,6 @@ public class BaseActivity extends Activity {
     public EditText getSearchText() {
         return searchText;
     }
-
-//    public ImageView getImgMap() {
-//        return imgMap;
-//    }
-//
-//    public TextView getTxtSubHeader() {
-//        return txtSubHeader;
-//    }
 
     public LinearLayout getBackgoundLayout() {
         return backgoundLayout;
@@ -187,12 +161,6 @@ public class BaseActivity extends Activity {
     }
 
     public void showBackButton() {
-//        ActionBar actionBar = this.getActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
-//        actionBar.show();
-//        final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow_grey);
-//        actionBar.setHomeAsUpIndicator(upArrow);
 
         if (mActionbarToolbar != null) {
             ImageView backbutton = (ImageView) mActionbarToolbar.findViewById(R.id.img_back_button);

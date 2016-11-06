@@ -47,10 +47,6 @@ public class BasicUtils {
         for(int i = 0; i < queryList.size(); i++ ) {
             putSearchQuery(context, i+5-queryList.size(), queryList.get(i));
         }
-//        } else {
-//            queryList.add(0, query);
-//        }
-
 
 
 //        ArrayList<String> queryList;
