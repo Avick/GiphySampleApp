@@ -130,10 +130,14 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
                 counter++;
                 getSearchResult(PER_PAGE_RESULT*counter);
                 mDataSet.add(null);
-                if (mAdapter != null) {
-                    mAdapter.notifyItemChanged(mDataSet.size() - 1);
-                    //mAdapter.notifyItemChanged((int) Math.ceil(((double) mDataSet.size())/2));
-                }
+                mRecyclerView.post(new Runnable() {
+                    public void run() {
+                        if (mAdapter != null) {
+                            mAdapter.notifyItemInserted(mDataSet.size() - 1);
+                        }
+                    }
+                });
+
             }
         };
         mRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
@@ -220,7 +224,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
         }
 
 
-        if (counter == 0) {
+        //if (counter == 0) {
             mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
@@ -239,7 +243,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
                 }
 
             });
-        }
+        //}
 
 
     }
