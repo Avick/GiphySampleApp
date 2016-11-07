@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -56,6 +54,8 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
     PopupWindow popup;
     View rootView;
     boolean isSearchClickable = false;
+    final static int PER_PAGE_RESULT = 26;
+
 
     public static SearchFragment newInstance() {
         SearchFragment frag = new SearchFragment();
@@ -128,7 +128,7 @@ public class SearchFragment extends BaseFragment implements SearchListAdapter.On
             @Override
             public void onLoadMore(int count) {
                 counter++;
-                getSearchResult(counter);
+                getSearchResult(PER_PAGE_RESULT*counter);
                 mDataSet.add(null);
                 if (mAdapter != null) {
                     mAdapter.notifyItemChanged(mDataSet.size() - 1);
