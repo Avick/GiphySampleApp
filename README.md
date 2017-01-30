@@ -1,4 +1,4 @@
-# GiphySampleApp for show gif files using API's from giphy.com
+# GiphySampleApp to show gif files using API's from [giphy.com](http://giphy.com/)
 -------
 used
 
@@ -10,9 +10,9 @@ used
 
 - for selecting location
 
-- EventBus
+- [EventBus](https://github.com/greenrobot/EventBus)
 
-- Glide for gif image show
+- [Glide to show gif image](https://github.com/bumptech/glide)
 
 Activity and Fragments
 ----
